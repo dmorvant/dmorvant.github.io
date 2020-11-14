@@ -1,142 +1,127 @@
-<Html5>
-<link type="text/css" rel="stylesheet" href="index.scss" />
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+  background: linear-gradient(135deg, rgba(85,239,203,1) 0%,rgba(30,87,153,1) 0%,rgba(85,239,203,1) 0%,rgba(91,202,255,1) 100%);
+  color: #f7f7f7;
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
+}
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  flex-wrap: wrap;
+  width: 60vw;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 100vh;
+}
+.button {
+  flex: 1 1 auto;
+  margin: 10px;
+  padding: 20px;
+  border: 2px solid #f7f7f7;
+  text-align: center;
+  text-transform: uppercase;
+  position: relative;
+  overflow:hidden;
+  transition: .3s;
+  &:after {
+    position: absolute;
+    transition: .3s;
+    content: '';
+    width: 0;
+    left: 50%;
+    bottom: 0;
+    height: 3px;
+    background: #f7f7f7;
+  }
+  &:nth-of-type(2):after {
+    left: 0;
+  }
+  &:nth-of-type(3):after {
+    right: 0;
+    left: auto;
+  }
+  &:nth-of-type(4):after {
+    left: 0;
+    bottom: auto;
+    top: -3px;
+    width: 100%;
+  }
+  &:nth-of-type(5):after {
+    height: 120%;
+    left: -10%;
+    transform: skewX(15deg);
+    z-index: -1;
+  }
+  &:hover {
+    cursor: pointer;
+    &:after {
+      width: 100%;
+      left: 0;
+    }
+    &:nth-of-type(4):after {
+      top: calc(100% - 3px);
+    }
+    &:nth-of-type(5) {
+      color: #5bcaff;
+    }
+    &:nth-of-type(5):after {
+      left: -10%;
+      width: 120%;
+    }
+    // &:nth-of-type(6) {
+    //   flex-grow:3;
+    // }
+    // &:nth-of-type(6):after {
+    //   width: 0%;
+    // }
+    &:nth-of-type(6) {
+      border-radius: 30px;
+    }
+    &:nth-of-type(6):after {
+      width: 0%;
+    }
+    &:nth-of-type(7) {
+      transform: scale(1.2);
+    }
+    &:nth-of-type(7):after {
+      width: 0%;
+    }
+    &:nth-of-type(8) {
+      box-shadow: inset 0px 0px 0px 3px #f7f7f7;
+    }
+    &:nth-of-type(8):after {
+      width: 0%;
+    }
+    &:nth-of-type(9) {
+      box-shadow: 0px 0px 0px 3px #f7f7f7;
+    }
+    &:nth-of-type(9):after {
+      width: 0%;
+    }
+  }
+}
+	</style>
+	<body>
+		
+
 <div class="container">
-<!-- Grid container	 -->
-	
-	<div class="grid">
-		<div class="grid__item">
-			<article class="pantone-card pantone-card--french-gray">
-				<h1 class="pantone-card__name">1</h1>
-			</article>
-		</div>
-		<div class="grid__item">
-			<article class="pantone-card pantone-card--vanilla-ice">
-				<h1 class="pantone-card__name">2</h1>
-			</article>
-		</div>
-		<div class="grid__item">
-			<article class="pantone-card pantone-card--mischka">
-				<h1 class="pantone-card__name">3</h1>
-			</article>
-		</div>
-		<div class="grid__item">
-			<article class="pantone-card pantone-card--givry">
-				<h1 class="pantone-card__name">4</h1>
-			</article>
-		</div>
-		<div class="grid__item">
-			<article class="pantone-card pantone-card--bon-jour">
-				<h1 class="pantone-card__name">5</h1>
-			</article>
-		</div>
-		<div class="grid__item">
-			<article class="pantone-card pantone-card--jagged-ice">
-				<h1 class="pantone-card__name">6</h1>
-			</article>
-		</div>
-		<div class="grid__item">
-			<article class="pantone-card pantone-card--shadow-green">
-				<h1 class="pantone-card__name">7</h1>
-			</article>
-		</div>
-		<div class="grid__item">
-			<article class="pantone-card pantone-card--conch">
-				<h1 class="pantone-card__name">8</h1>
-			</article>
-		</div>
-		<div class="grid__item">
-			<article class="pantone-card pantone-card--grey-nurse">
-				<h1 class="pantone-card__name">9</h1>
-			</article>
-		</div>
-		<div class="grid__item">
-			<article class="pantone-card pantone-card--pampas">
-				<h1 class="pantone-card__name">10</h1>
-			</article>
-		</div>
-		<div class="grid__item">
-			<article class="pantone-card pantone-card--french-gray">
-				<h1 class="pantone-card__name">11</h1>
-			</article>
-		</div>
-		<div class="grid__item">
-			<article class="pantone-card pantone-card--vanilla-ice">
-				<h1 class="pantone-card__name">12</h1>
-			</article>
-		</div>
-		<div class="grid__item">
-			<article class="pantone-card pantone-card--mischka">
-				<h1 class="pantone-card__name">13</h1>
-			</article>
-		</div>
-		<div class="grid__item">
-			<article class="pantone-card pantone-card--givry">
-				<h1 class="pantone-card__name">14</h1>
-			</article>
-		</div>
-		<div class="grid__item">
-			<article class="pantone-card pantone-card--bon-jour">
-				<h1 class="pantone-card__name">15</h1>
-			</article>
-		</div>
-		<div class="grid__item">
-			<article class="pantone-card pantone-card--jagged-ice">
-				<h1 class="pantone-card__name">16</h1>
-			</article>
-		</div>
-		<div class="grid__item">
-			<article class="pantone-card pantone-card--shadow-green">
-				<h1 class="pantone-card__name">17</h1>
-			</article>
-		</div>
-		<div class="grid__item">
-			<article class="pantone-card pantone-card--conch">
-				<h1 class="pantone-card__name">18</h1>
-			</article>
-		</div>
-		<div class="grid__item">
-			<article class="pantone-card pantone-card--grey-nurse">
-				<h1 class="pantone-card__name">19</h1>
-			</article>
-		</div>
-		<div class="grid__item">
-			<article class="pantone-card pantone-card--pampas">
-				<h1 class="pantone-card__name">20</h1>
-			</article>
-		</div>
-		<div class="grid__item">
-			<article class="pantone-card pantone-card--french-gray">
-				<h1 class="pantone-card__name">21</h1>
-			</article>
-		</div>
-		<div class="grid__item">
-			<article class="pantone-card pantone-card--vanilla-ice">
-				<h1 class="pantone-card__name">22</h1>
-			</article>
-		</div>
-		<div class="grid__item">
-			<article class="pantone-card pantone-card--mischka">
-				<h1 class="pantone-card__name">23</h1>
-			</article>
-		</div>
-		<div class="grid__item">
-			<article class="pantone-card pantone-card--givry">
-				<h1 class="pantone-card__name">24</h1>
-			</article>
-		</div>
-		<div class="grid__item">
-			<article class="pantone-card pantone-card--bon-jour">
-				<h1 class="pantone-card__name">25</h1>
-			</article>
-		</div>
-		<div class="grid__item">
-			<article class="pantone-card pantone-card--jagged-ice">
-				<h1 class="pantone-card__name">26</h1>
-			</article>
-		</div>
-	</div>
+  <div class="button">Center -> out</div>
+  <div class="button">Left -> Right -> Left</div>
+  <div class="button">Left -> Right -> Right</div>
+  <div class="button">Top -> Bottom -> Top</div>
+  <div class="button">Skew Fill Left -> Right</div>
+<!--   <div class="button">Flex Grow</div> -->
+  <div class="button">Rounded Corners</div>
+  <div class="button">Scale</div>
+  <div class="button">Border (Inner Shadow)</div>
+  <div class="button">Border (Outer Shadow)</div>
 </div>
 
-<!-- 
-**Color themes taken from Design Seeds: https://www.design-seeds.com/summer-issue-no-2/texture/
--->
+	</body>
+	</html>
