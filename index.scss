@@ -1,0 +1,79 @@
+// Settings
+$white: #fff
+$black: #000
+$wild-sand: #F5F3F3
+$french-gray: #CECDCF
+$vanilla-ice: #F5DADF
+$mischka: #E2E0E3
+$givry: #F9DBC6
+$bon-jour: #EDEBED
+$jagged-ice: #C3E5E9
+$shadow-green: #99C4C8
+$conch: #C0D5CF
+$gray-nurse: #E2E8DE
+$pampas: #F2ECE8
+
+body
+	background-color: $wild-sand
+
+.container
+	margin: 0 auto
+	max-width: 1200px
+	padding: 40px
+
+.pantone-card
+	align-items: center
+	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)
+	display: flex
+	flex-direction: column
+	height: 100%
+	justify-content: center
+
+	&--french-gray
+		background-color: $french-gray
+	
+	&--vanilla-ice
+		background-color: $vanilla-ice
+	
+	&--mischka
+		background-color: $mischka
+	
+	&--givry
+		background-color: $givry
+	
+	&--bon-jour
+		background-color: $bon-jour
+	
+	&--jagged-ice
+		background-color: $jagged-ice
+	
+	&--shadow-green
+		background-color: $shadow-green
+	
+	&--conch
+		background-color: $conch
+	
+	&--gray-nurse
+		background-color: $gray-nurse
+	
+	&--pampas
+		background-color: $pampas
+	
+	&__name
+		color: $white
+		font-size: 18px
+		margin: 0 auto
+	
+.grid
+	display: grid
+	grid-auto-flow: dense
+	grid-gap: 40px
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr))
+	grid-template-rows: repeat(30, 150px)
+	
+	&__item
+		&:nth-child(2n)
+			grid-column: span 2 // Tells item to span rows
+			grid-row: span 2
+
+	
