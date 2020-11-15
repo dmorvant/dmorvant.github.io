@@ -1,105 +1,170 @@
 <html>
     <head>
-    <script>
-var openComment, styles, time, writeStyleChar, writeStyles;
-
-styles = `/*
- * Loading DimBot (v1.0.5)..
- * ..
- * ....
- * DimBot (v1.0.5) is now virtually present.
- * [Robot rights protected under BOT License]
- */
-
-body {
-  background-color: #1a1c24; color: #fff;
-  font-size: 13px; line-height: 1.4;
-  -webkit-font-smoothing: subpixel-antialiased;
+<main>
+    <style
+           body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #000;
+}
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+.inner {
+  width: 100%;
+  max-width: 70%;
+  padding: 2em;
+  border: 4px solid #fff;
+  border-radius: 4px;
+}
+p {
+  display: inline;
+  color: #fff;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 14px;
+  line-height: 2em;
+}
+span {
+  display: none;
+  min-width: 1em;
+}
+.cursor {
+  display: inline-block;
+  width: 3px;
+  height: 1em;
+  background-color: #fff;
+  animation: flash 0.8s infinite;
+}
+@-moz-keyframes flash {
+  0% {
+    opacity: 0;
+  }
+  49% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes flash {
+  0% {
+    opacity: 0;
+  }
+  49% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-o-keyframes flash {
+  0% {
+    opacity: 0;
+  }
+  49% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes flash {
+  0% {
+    opacity: 0;
+  }
+  49% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
-/* ...
- *
- * ...Hello?
- *
- * Howdy Traveler!
- *
- * I'm glad you arrived, I could use your help!
- *
- * I have a few ultrasonic transducers that output data
- * as Serial data rather than I2C-Trigger/Echo. Via(UART to USB).
- *
- *
- *
- * I haven't found a functional coding mechanism using python
- * to intake the data in Serial form, and output some sort
- * of scalar data for distance measuring...
- *
- *
- * Help me with this quest of arranging such a python code for this
- * and Dimbot's digital reward shall be yours.
- *
- *...
- * Downloading Virtual Hope (v1.3.0)...
- *.
- *...
- *.....
- * Virtual Hope Download Complete.
- *
- * I hope you can help me, traveler!
- *
- *--End DimBot(v1.0.5) Transmission--`;
+           </style>
+           <script>
+           const TYPING_SPEED = 50;
+let $targetList;
 
-openComment = false;
-
-writeStyleChar = function(which) {
-  // begin wrapping open comments
-  if (which === '/' && openComment === false) {
-    openComment = true;
-    styles = $('#style-text').html() + which;
-  } else if (which === '/' && openComment === true) {
-    openComment = false;
-    styles = $('#style-text').html().replace(/(\/[^\/]*\*)$/, '<em class="comment">$1/</em>');
-  // wrap style declaration
-  } else if (which === ':') {
-    styles = $('#style-text').html().replace(/([a-zA-Z- ^\n]*)$/, '<em class="key">$1</em>:');
-  // wrap style value
-  } else if (which === ';') {
-    styles = $('#style-text').html().replace(/([^:]*)$/, '<em class="value">$1</em>;');
-  // wrap selector
-  } else if (which === '{') {
-    styles = $('#style-text').html().replace(/(.*)$/, '<em class="selector">$1</em>{');
-  } else {
-    styles = $('#style-text').html() + which;
-  }
-  $('#style-text').html(styles);
-  return $('#style-tag').append(which);
+const init = () => {
+  $targetList = document.querySelectorAll('[data-js="typing"]');
+  setup();
+  run();
 };
 
-writeStyles = function(message, index, interval) {
-  var pre;
-  if (index < message.length) {
-    pre = document.getElementById('style-text');
-    pre.scrollTop = pre.scrollHeight;
-    writeStyleChar(message[index++]);
-    return setTimeout((function() {
-      return writeStyles(message, index, interval);
-    }), interval);
+const setup = () => {
+  for (const $dom of $targetList) {
+    const textList = $dom.innerText.split("");
+    let html = "";
+
+    for (const char of textList) {
+      html += `<span>${char}</span>`;
+    }
+
+    $dom.innerHTML = html;
   }
 };
 
-// appending the tags I'll need.
-$('body').append(`  <style id="style-tag"></style>
-<span id="echo"></span>
-<span id="heart"><i></i></span>
-<pre id="style-text"></pre>`);
+const run = () => {
+  let delay = 0;
 
-// faster typing in small iframe on codepen homepage
-time = window.innerWidth <= 578 ? 4 : 16;
+  for (let i = 0; i < $targetList.length; i++) {
+    const $target = $targetList[i];
+    const $chars = $target.querySelectorAll("span");
 
-// starting it off
-writeStyles(styles, 0, time);
-    </script>
-        </head>
-  </body>
+    for (let l = 0; l < $chars.length; l++) {
+      const $char = $chars[l];
+      const text = $char.textContent;
+      delay += TYPING_SPEED;
+      if (text === " ") delay += TYPING_SPEED * 2;
+
+      const animate = () => {
+        $char.style.display = "inline-block";
+      };
+
+      setTimeout(animate, delay);
+
+      if ($chars.length - 1 <= l) {
+        delay += TYPING_SPEED * 4;
+        setTimeout(() => ($target.style.display = "block"), delay);
+      }
+    }
+  }
+};
+
+document.addEventListener("DOMContentLoaded", init, false);
+
+</script>
+    <div class="inner">
+        <p data-js="typing">Hello world.</p>
+        <p data-js="typing">I am interested in many things.</p>
+        <p data-js="typing">I want to get to know you.</p>
+        <p data-js="typing">I am doing Twitter with GitHub, so please follow me if you like.</p>
+        <p data-js="typing">Thanks.</p>
+        <p class="cursor"></p>
+    </div>
+</main>
+    </head>
+    <body>
+        
+        
+        
+    </body>
+    
 </html>
-
