@@ -1,101 +1,46 @@
-<html>
-	<body>
-		<script type="text/coffeescript" src="./coffeescript.js">
-styles = """
-/*
- * Loading DimBot (v1.0.5)..
- * ..
- * ....
- * DimBot (v1.0.5) is now virtually present.
- * [Robot rights protected under BOT License]
- */
+(function() {
+  var openComment, styles, time, writeStyleChar, writeStyles;
 
-body {
-  background-color: #1a1c24; color: #fff;
-  font-size: 13px; line-height: 1.4;
-  -webkit-font-smoothing: subpixel-antialiased;
-}
+  styles = "/*\n * Loading DimBot (v1.0.5)..\n * ..\n * ....\n * DimBot (v1.0.5) is now virtually present.\n * [Robot rights protected under BOT License]\n */\n\nbody {\n  background-color: #1a1c24; color: #fff;\n  font-size: 13px; line-height: 1.4;\n  -webkit-font-smoothing: subpixel-antialiased;\n}\n\n/* ...\n *\n * ...Hello?\n *\n * Howdy Traveler!\n *\n * I'm glad you arrived, I could use your help!\n *\n * I have a few ultrasonic transducers that output data\n * as Serial data rather than I2C-Trigger/Echo. Via(UART to USB).\n *\n *\n *\n * I haven't found a functional coding mechanism using python\n * to intake the data in Serial form, and output some sort\n * of scalar data for distance measuring...\n *\n *\n * Help me with this quest of arranging such a python code for this\n * and Dimbot's digital reward shall be yours.\n *\n *...\n * Downloading Virtual Hope (v1.3.0)...\n *.\n *...\n *.....\n * Virtual Hope Download Complete.\n *\n * I hope you can help me, traveler!\n *\n *--End DimBot(v1.0.5) Transmission--";
 
-/* ...
- *
- * ...Hello?
- *
- * Howdy Traveler!
- *
- * I'm glad you arrived, I could use your help!
- *
- * I have a few ultrasonic transducers that output data
- * as Serial data rather than I2C-Trigger/Echo. Via(UART to USB).
- *
- *
- *
- * I haven't found a functional coding mechanism using python
- * to intake the data in Serial form, and output some sort
- * of scalar data for distance measuring...
- *
- *
- * Help me with this quest of arranging such a python code for this
- * and Dimbot's digital reward shall be yours.
- *
- *...
- * Downloading Virtual Hope (v1.3.0)...
- *.
- *...
- *.....
- * Virtual Hope Download Complete.
- *
- * I hope you can help me, traveler!
- *
- *--End DimBot(v1.0.5) Transmission--
-"""
+  openComment = false;
 
-openComment = false
+  writeStyleChar = function(which) {
+    if (which === '/' && openComment === false) {
+      openComment = true;
+      styles = $('#style-text').html() + which;
+    } else if (which === '/' && openComment === true) {
+      openComment = false;
+      styles = $('#style-text').html().replace(/(\/[^\/]*\*)$/, '<em class="comment">$1/</em>');
+    } else if (which === ':') {
+      styles = $('#style-text').html().replace(/([a-zA-Z- ^\n]*)$/, '<em class="key">$1</em>:');
+    } else if (which === ';') {
+      styles = $('#style-text').html().replace(/([^:]*)$/, '<em class="value">$1</em>;');
+    } else if (which === '{') {
+      styles = $('#style-text').html().replace(/(.*)$/, '<em class="selector">$1</em>{');
+    } else {
+      styles = $('#style-text').html() + which;
+    }
+    $('#style-text').html(styles);
+    return $('#style-tag').append(which);
+  };
 
-writeStyleChar = (which) ->
-	# begin wrapping open comments
-  if which == '/' && openComment == false
-    openComment = true
-    styles = $('#style-text').html() + which
-  else if which == '/' && openComment == true
-    openComment = false
-    styles = $('#style-text').html().replace(/(\/[^\/]*\*)$/, '<em class="comment">$1/</em>')
-  # wrap style declaration
-  else if which == ':'
-    styles = $('#style-text').html().replace(/([a-zA-Z- ^\n]*)$/, '<em class="key">$1</em>:')
-  # wrap style value
-  else if which == ';'
-    styles = $('#style-text').html().replace(/([^:]*)$/, '<em class="value">$1</em>;')
-  # wrap selector
-  else if which == '{'
-    styles = $('#style-text').html().replace(/(.*)$/, '<em class="selector">$1</em>{')
-  else
-    styles = $('#style-text').html() + which
-  $('#style-text').html styles
-  $('#style-tag').append which
+  writeStyles = function(message, index, interval) {
+    var pre;
+    if (index < message.length) {
+      pre = document.getElementById('style-text');
+      pre.scrollTop = pre.scrollHeight;
+      writeStyleChar(message[index++]);
+      return setTimeout((function() {
+        return writeStyles(message, index, interval);
+      }), interval);
+    }
+  };
 
-writeStyles = (message, index, interval) ->
-  if index < message.length
-    pre = document.getElementById 'style-text'
-    pre.scrollTop = pre.scrollHeight
-    writeStyleChar message[index++]
-    setTimeout (->
-      writeStyles message, index, interval
-    ), interval
+  $('body').append("  <style id=\"style-tag\"></style>\n<span id=\"echo\"></span>\n<span id=\"heart\"><i></i></span>\n<pre id=\"style-text\"></pre>");
 
+  time = window.innerWidth <= 578 ? 4 : 16;
 
-# appending the tags I'll need.
-$('body').append """
-  <style id="style-tag"></style>
-	<span id="echo"></span>
-	<span id="heart"><i></i></span>
-	<pre id="style-text"></pre>
-"""
+  writeStyles(styles, 0, time);
 
-# faster typing in small iframe on codepen homepage
-time = if window.innerWidth <= 578 then 4 else 16
-
-# starting it off
-writeStyles(styles, 0, time)
-		</script>
-	</body>
-</html>
+}).call(this);
