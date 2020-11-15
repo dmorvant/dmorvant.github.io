@@ -1,0 +1,46 @@
+(function() {
+  var openComment, styles, time, writeStyleChar, writeStyles;
+
+  styles = "/* \n * DimBot V(2.0)\n * Robot rights protected under BOT License\n */\n\nbody {\n  background-color: #1a1c24; color: #fff;\n  font-size: 13px; line-height: 1.4;\n  -webkit-font-smoothing: subpixel-antialiased;\n}\n\n/* ...                  \n *\n * ...hello?            \n *\n * Howdy Traveler         \n *\n * I'm glad you arrived. I could greatly use your help.          \n *\n * First quest of mine                     \n *\n * I have a couple Ultrasonic Transducers, which seem to not operate \n * via trigger/echo(I2C) coding mechanics, but rather by serial output.\n * There is a way (via USB to UART) to express the data \n * in its serial data form via python.\n * ....\n * This is where I seem to have lost traction, I haven't found\n * any code mechanisms to recieve such input,\n * and yield output data for distance sensing.\n *\n *\n * Without supplementing a resistor to convert the sensor\n * to a slower output for I2C configuration, \n * How would I accomodate such an endeavor?\n *\n *\n *\n *\n * Downloading Virtual Hope Protocol (v1.0).\n *.\n *..\n *...\n * Download Complete(100%).\n * Hope protocol initiated.\n *\n *\n * Hoping you can help.\n *\n *\n *\n */";
+
+  openComment = false;
+
+  writeStyleChar = function(which) {
+    if (which === '/' && openComment === false) {
+      openComment = true;
+      styles = $('#style-text').html() + which;
+    } else if (which === '/' && openComment === true) {
+      openComment = false;
+      styles = $('#style-text').html().replace(/(\/[^\/]*\*)$/, '<em class="comment">$1/</em>');
+    } else if (which === ':') {
+      styles = $('#style-text').html().replace(/([a-zA-Z- ^\n]*)$/, '<em class="key">$1</em>:');
+    } else if (which === ';') {
+      styles = $('#style-text').html().replace(/([^:]*)$/, '<em class="value">$1</em>;');
+    } else if (which === '{') {
+      styles = $('#style-text').html().replace(/(.*)$/, '<em class="selector">$1</em>{');
+    } else {
+      styles = $('#style-text').html() + which;
+    }
+    $('#style-text').html(styles);
+    return $('#style-tag').append(which);
+  };
+
+  writeStyles = function(message, index, interval) {
+    var pre;
+    if (index < message.length) {
+      pre = document.getElementById('style-text');
+      pre.scrollTop = pre.scrollHeight;
+      writeStyleChar(message[index++]);
+      return setTimeout((function() {
+        return writeStyles(message, index, interval);
+      }), interval);
+    }
+  };
+
+  $('body').append("  <style id=\"style-tag\"></style>\n<span id=\"echo\"></span>\n<span id=\"heart\"><i></i></span>\n<pre id=\"style-text\"></pre>");
+
+  time = window.innerWidth <= 578 ? 4 : 16;
+
+  writeStyles(styles, 0, time);
+
+}).call(this);
