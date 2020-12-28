@@ -55,6 +55,26 @@
   
 <!--Specialized text group -->
   <style>
+	  .button {
+  padding: 15px 25px;
+  font-size: 20px;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  color: #F0FFFF;
+  background-color: #20B2AA;
+  border: none;
+  border-radius: 30px;
+  box-shadow: 0 9px #999;
+}
+
+.button:hover {background-color: #3e8e41}
+
+.button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
 html { 
 	overflow-y: hidden;
 }
@@ -180,11 +200,15 @@ background: linear-gradient(to right, #ffc3a0, #FFAFBD); /* W3C, IE 10+/ Edge, F
   <div class="button">Border (Inner Shadow)</div>
   <div class="button">Border (Outer Shadow)</div>
 </div>
+	  
+	  
 </style> 
 <!--Specialized text group -->
 </head>
 <!--Body -->
 <body>
+	<a href='/index.html'><button class="button">Home</button></a>
+
 <div class="container">
   <a href="./Gallery.html" style="color: #FFFFFF; text-decoration: none;"><div class="button">Southeastern Louisiana Biota</div></a>
   <a href="./Start.html" style="color: #FFFFFF; text-decoration: none;"><div class="button">Logistics</div></a>
